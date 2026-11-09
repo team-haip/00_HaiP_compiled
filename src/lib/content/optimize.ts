@@ -37,7 +37,7 @@ export async function optimizeContent(x: Extracted, analysis: Analysis, prompts:
   return { ...r, method: "llm" };
 }
 
-export function wrapHtmlDocument(fragment: string, title: string, lang = "ko") {
+export function wrapHtmlDocument(fragment: string, title: string, lang = "en") {
   return `<!doctype html>
 <html lang="${lang}">
 <head>

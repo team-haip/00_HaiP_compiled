@@ -17,7 +17,7 @@ type HistoryPage = { id: string; url: string; title: string | null; lastAnalyzed
 const sev: Record<string, "destructive" | "secondary" | "outline"> = { high: "destructive", medium: "secondary", low: "outline" };
 
 function wrapDoc(fragment: string, title: string) {
-  return `<!doctype html>\n<html lang="ko">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title.replace(/</g, "&lt;")}</title>\n</head>\n<body>\n${fragment}\n</body>\n</html>\n`;
+  return `<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title.replace(/</g, "&lt;")}</title>\n</head>\n<body>\n${fragment}\n</body>\n</html>\n`;
 }
 
 export default function Optimization() {
