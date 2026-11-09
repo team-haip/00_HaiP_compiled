@@ -75,7 +75,7 @@ export function ProjectForm({
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="aliases">Brand aliases (comma separated, optional)</Label>
-          <Input id="aliases" value={aliases} onChange={(e) => setAliases(e.target.value)} placeholder="Example Dental Clinic, 예시치과" />
+          <Input id="aliases" value={aliases} onChange={(e) => setAliases(e.target.value)} placeholder="Example Dental Clinic, ExDental" />
         </div>
       </div>
 
