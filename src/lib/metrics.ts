@@ -1,11 +1,13 @@
 import { db } from "./db";
 import { domainMatches, json } from "./util";
+import { providerStatus } from "./env";
 
 export type RunMetrics = {
   runId: string;
   startedAt: string;
   completedAt: string | null;
   status: string;
+  demo: boolean; // all answers came from demo mode (no API keys)
   evaluated: number; // successfully evaluated answers
   errors: number;
   uncertain: number;
@@ -59,6 +61,7 @@ export async function runMetrics(runId: string): Promise<RunMetrics | null> {
     startedAt: run.startedAt.toISOString(),
     completedAt: run.completedAt?.toISOString() ?? null,
     status: run.status,
+    demo: evaluated > 0 && okResults.every((r) => r.model === "demo"),
     evaluated,
     errors: run.results.length - evaluated,
     uncertain: okResults.filter((r) => r.uncertain).length,
@@ -76,6 +79,7 @@ export async function runMetrics(runId: string): Promise<RunMetrics | null> {
 }
 
 export async function projectHistory(projectId: string, limit = 20): Promise<RunMetrics[]> {
+  const demo = providerStatus().demo;
   const runs = await db.monitoringRun.findMany({
     where: { projectId, status: { in: ["completed", "failed"] } },
     orderBy: { startedAt: "desc" },
@@ -85,7 +89,8 @@ export async function projectHistory(projectId: string, limit = 20): Promise<Run
   const out: RunMetrics[] = [];
   for (const r of runs) {
     const m = await runMetrics(r.id);
-    if (m) out.push(m);
+    // Once real keys are configured, demo runs are left out so they do not pollute trends.
+    if (m && (demo || !m.demo)) out.push(m);
   }
   return out.reverse();
 }

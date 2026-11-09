@@ -77,7 +77,9 @@ PUT  /api/schedule              GET /api/dashboard
 
 - `npm install`, `npx prisma migrate dev`, `npm run lint`, `npm run build`, `npm run dev` 통과.
 - 데모 모드(키 없음)로 온보딩 → 모니터링 → 페이지 분석 → 에이전트 실행 → cron 멱등성 → 대시보드까지 API 로 확인. 데이터는 `prisma/dev.db` 에 남아 재시작 후 유지된다.
-- **실제 OpenAI·Gemini 호출은 이 환경에 키가 없어 테스트하지 못했다.** SDK 호출 형태는 공식 문서(Responses API `web_search`, `responses.parse`+`zodTextFormat`, `@google/genai` `googleSearch`)를 따랐으나 모델 ID·응답 필드는 키를 넣고 첫 실행 때 확인 필요.
+- 실제 키(`gpt-6-astra`, `gemini-3.8-flash`)로 모니터링 3프롬프트×2제공자 6/6 성공, 인용 22건(Gemini 리다이렉트 → 실제 도메인 복원 확인), 위키백과 「Dental implant」 분석(medical 판정)·최적화 HTML 생성, 주간 에이전트 전 단계 완료까지 확인(2026-11-09, 로컬 dev.db).
+- 키를 넣기 전 데모 실행은 실제 모드 추이에서 제외된다(`RunMetrics.demo`).
+- 원본 HTML 은 200k자, 최적화 입력은 60k자에서 자른다. 위키백과처럼 긴 페이지는 앞부분만 재작성되며 리포트의 preserved_facts_note 에 그 사실이 적힌다.
 
 ## 미완성·축소
 
