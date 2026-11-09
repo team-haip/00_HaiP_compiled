@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { ProjectForm } from "@/components/project-form";
+import { ApiKeyCard } from "@/components/api-key-card";
 import { PageHeader, Spinner, ErrorBox, Notice, useApi, post } from "@/components/ui-bits";
 
 type Project = { id: string; companyName: string; brandName: string; website: string; domain: string; aliases: string; competitors: { name: string; domain: string | null }[]; prompts: { id: string; text: string; active: boolean }[]; schedule: { cronExpression: string; timezone: string; enabled: boolean } | null };
@@ -52,6 +53,7 @@ export default function Settings() {
         </Card>
 
         <div className="space-y-6">
+          <ApiKeyCard />
           <Card>
             <CardHeader><CardTitle>Search prompts</CardTitle><CardDescription>Inactive prompts are skipped by monitoring.</CardDescription></CardHeader>
             <CardContent>
