@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Eye, Link2, FileText, Bot, Settings, Radar } from "lucide-react";
+import { LayoutDashboard, Eye, Link2, FileText, Bot, Settings, Radar, Code2 } from "lucide-react";
 import { cn } from "cn";
 
 const nav = [
@@ -11,6 +11,7 @@ const nav = [
   { href: "/optimization", label: "Content Optimization", icon: FileText },
   { href: "/agents", label: "Agent Runs", icon: Bot },
   { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/docs", label: "API Docs", icon: Code2 },
 ];
 
 export function Sidebar() {

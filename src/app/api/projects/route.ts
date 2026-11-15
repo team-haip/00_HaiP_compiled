@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { ok, fail, currentProject } from "@/lib/api";
 import { projectInput } from "@/lib/schemas";
 import { normalizeDomain } from "@/lib/util";
+import { newApiKey } from "@/lib/v1";
 
 export async function GET() {
   try {
@@ -19,6 +20,7 @@ export async function POST(req: Request) {
         website: input.website,
         domain: normalizeDomain(input.website),
         aliases: JSON.stringify(input.aliases),
+        apiKey: newApiKey(),
         competitors: { create: input.competitors.map((c) => ({ name: c.name, domain: c.domain ? normalizeDomain(c.domain) : null })) },
         prompts: { create: input.prompts.map((text) => ({ text })) },
         schedule: { create: {} },

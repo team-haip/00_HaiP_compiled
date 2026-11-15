@@ -41,7 +41,19 @@ With neither key configured the app runs in **demo mode** automatically: monitor
 | `/agents` | Run Agents Now, run history with steps, errors and the weekly summary |
 | `/settings` | Edit project, add / remove / deactivate prompts, weekly schedule (stored in the database) |
 
-## API
+## 공개 API (`/v1`, `X-API-Key`) — 제품의 본체
+
+고객 사이트는 아래 세 호출만 하면 된다. 답은 주간 에이전트가 AI 검색 변화에 맞춰 스스로 갱신한다. 스펙 `/v1/openapi.json`, 설명 `/docs`, 키는 Settings 에서.
+
+```
+POST /v1/projects                      등록 → apiKey (한 번만 반환)
+GET  /v1/visibility                    최신 언급률·공유율·인용률·제공자별·변화(noise 판정)·기회
+GET  /v1/pages/optimized?url=…[&wait=1][&format=json]
+                                       최신 최적화 HTML 조각. 없거나 7일 지나면 재생성(202 또는 wait=1)
+                                       헤더 X-GEO-Generated-At / X-GEO-Stale / X-GEO-Optimization-Id
+```
+
+## 내부 API (대시보드용)
 
 ```
 GET/POST/PUT /api/projects      GET /api/projects/:id
